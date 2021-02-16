@@ -1,0 +1,58 @@
+
+                Dependency Injection
+
+    - Dependency Injection is where a needed dependency is injected by another object.
+    - The class being injected has no responsibility in instantiating the object being injected.
+    - Some say you avoid declaring objects using "new"
+        - Not 100% correct... Because there are times where you are going to be creating new objects
+          inside of your code. There is still very much a valid use case for it. But if you think about
+          a database connection, that is a fairly expensive and complex object to create and this is an
+          ideal thing that you can have injected.
+
+                Types of Dependency Injection
+
+    - By class properties - least preferred
+        - Can be public or private properties
+        - Using private properties is EVIL. It does problems downstream such as testing.
+    - By Setters - Area of much debate
+    - By Constructor - Most Preferred
+
+                Concrete Classes vs Interfaces
+
+    - DI can be done with Concrete Classes or with Interfaces
+    - Generally DI with Concrete Classes should be avoided
+    - DI via Interfaces is highly preferred
+        - Allows runtime to decide implementation to inject
+        - Follows Interface Segregation Principle of SOLID
+        - Also, makes your code more testable
+
+                Inversion of Control
+
+    - Inversion of Control - aka IoC
+    - Is a technique to allow dependencies to be injected at runtime
+    - Dependencies are not predetermined
+
+    One important characteristic of a framework is that the methods defined by the user to tailor the framework
+    will often be called from within the framework itself, rather than from the user's application code.
+    The framework often plays the role of the main program in coordinating and sequencing application activity.
+    This inversion of control gives frameworks the power to serve as extensible skeletons. The methods supplied
+    by the user tailor the generic algorithms defined in the framework for a particular application.
+
+                IoC vs Dependency Injection
+
+    - IoC and DI are easily confused
+    - DI refers much to the composition of your classes
+        - ie - you compose your classes with DI in mind
+    - IoC is the runtime environment of your code
+        - ie - Spring Framework's IoC container
+        - Spring is in control of the injection of dependencies
+
+    So, Dependency Injection is how you write your classes.
+    Inversion of Control is the runtime when the injection is actually happening.
+    So the inversion of control determines what objects to actually inject.
+
+                Best Practices with Dependency Injection
+
+    - Favor using Constructor Injection over Setter Injection
+    - Use final properties for injected components
+    - Whenever practical, code to an interface
