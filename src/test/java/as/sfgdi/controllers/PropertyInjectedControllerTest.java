@@ -1,10 +1,8 @@
 package as.sfgdi.controllers;
 
-import as.sfgdi.services.GreetingServiceImpl;
+import as.sfgdi.services.ConstructorInjectedGreetingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PropertyInjectedControllerTest {
 
@@ -14,7 +12,7 @@ class PropertyInjectedControllerTest {
     @BeforeEach // here we mimic what a framework does (manual property injection)
     void setUp() {
         controller = new PropertyInjectedController();
-        controller.greetingService = new GreetingServiceImpl();
+        controller.greetingService = new ConstructorInjectedGreetingService();
     }
 
     @Test

@@ -1,10 +1,8 @@
 package as.sfgdi.controllers;
 
-import as.sfgdi.services.GreetingServiceImpl;
+import as.sfgdi.services.ConstructorInjectedGreetingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class SetterInjectedControllerTest {
 
@@ -13,7 +11,7 @@ class SetterInjectedControllerTest {
     @BeforeEach
     void setUp() {
         controller = new SetterInjectedController();
-        controller.setGreetingService(new GreetingServiceImpl()); // we use a setter to inject that service impl.
+        controller.setGreetingService(new ConstructorInjectedGreetingService()); // we use a setter to inject that service impl.
     }
 
     @Test
