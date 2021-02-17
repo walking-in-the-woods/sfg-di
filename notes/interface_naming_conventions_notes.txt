@@ -1,0 +1,13 @@
+
+                    Interface Naming Conventions
+
+    1. Interface should be good object name
+       Example Java's "List" interface
+          Implementations - ArrayList, LinkedList, CheckedList, SingletonList
+    2. Don't Start with "I"
+       - NO "IList"
+
+                    Implementation Naming
+
+    - When just one implementation - generally accepted to use <InterfaceName> + Impl
+    - When more than one, name should indicate difference of Implementation
