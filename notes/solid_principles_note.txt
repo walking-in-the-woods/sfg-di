@@ -1,0 +1,54 @@
+
+        S.O.L.I.D. Principles of OOP
+
+    1.  Single Responsibility Principle
+
+        (Just because you CAN doesn't mean you SHOULD)
+
+        - Every Class should have a single responsibility.
+        - There should never be more than one reason for a class to change.
+        - Your classes should be small. No more than a screen full of code.
+        - Avoid "god" classes.
+        - Split big classes into smaller classes.
+
+    2.  Open Closed Principle
+
+        (Open chest surgery is not needed when putting on a coat)
+
+        - Your classes should be open for extension
+        - But closed for modification
+        - You should be able to extend a classes behavior, without modifying it.
+        - Use private variables with getters and setters - ONLY when you need them
+        - Use abstract base classes
+
+    3.  Liskov Substitution Principle
+
+        (If it looks like a duck, quacks like a duck, but needs batteries -
+                    you probably have the wrong abstraction)
+
+        - Objects in a program would be replaced with instances of their subtypes
+          WITHOUT altering the correctness of the program
+        - Violation will often fail the "Is a" test.
+        - A Square "Is a" Rectangle
+        - However, a Rectangle "Is Not" a Square
+
+    4.  Interface Segregation Principle
+
+        (You want me to plug this in, where?)
+
+        - Make fine grained interfaces that are client specific
+        - Many clients specific interfaces are better than one "general purpose" interface
+        - Keep your components focused and minimize dependencies between them
+        - Notice relationship to the Single Responsibility Principle?
+            - we avoid "god" interfaces
+
+    5.  Dependency Inversion Principle
+
+        (Would you solder a lamp directly to the electrical wiring in a wall?)
+
+        - Abstractions should not depend upon details
+        - Details should depend upon abstractions
+        - Important that higher level and lower level objects
+          depend on the same abstract interaction
+        - This is not the same as Dependency Injection - which is
+          how objects obtain dependent objects
