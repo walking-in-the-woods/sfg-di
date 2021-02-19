@@ -4,10 +4,9 @@ import as.sfgdi.controllers.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"as.services", "as.sfgdi"})
+//@ComponentScan(basePackages = {"as.services", "as.sfgdi"})	// an example of fixing lost packages
 public class SfgDiApplication {
 
 	public static void main(String[] args) {

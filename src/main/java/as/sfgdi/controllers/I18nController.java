@@ -4,7 +4,7 @@ package as.sfgdi.controllers;
 I18n - is a common abbreviation for internationalization (begin with "i", ends with "n", and 18 characters long)
  */
 
-import as.services.GreetingService;
+import as.sfgdi.services.GreetingService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 

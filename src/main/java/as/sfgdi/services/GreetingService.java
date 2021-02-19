@@ -1,4 +1,4 @@
-package as.services;
+package as.sfgdi.services;
 
 public interface GreetingService {
 
