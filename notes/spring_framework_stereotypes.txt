@@ -1,0 +1,96 @@
+
+                Spring Framework Stereotypes
+
+    - Stereotype - a fixed general image or set of characteristics which represent
+      a particular type of person or thing.
+    - Spring Stereotypes are used to define Spring Beans in the Spring context.
+    - Available Stereotypes - @Component, @Controller, @RestController, @Repository, @Service
+
+                Spring Framework Stereotypes Hierarchy
+
+                 ______ @Component______
+                /           |           \
+        @Controller     @Repository     @Service
+             |
+        @RestController      <-- (Convenience annotation representing @Controller and @ResponseBody)
+
+    @Component is the highest level, everything else inherits from it. So when Spring encounters
+    just the @Component annotation, that's going to wire up as a Spring Bean, it's going to hold true
+    for all the other annotations. Now @Controller is used to indicate a Spring MVC Controller.
+    And you probably could swap @Controller and @Component out, and still have that bean function as Controller,
+    because that's going to be a Spring Component, but when you use @Controller you're going to be using
+    Request Mapping to map a particular method to a URL.
+
+    @Repository is annotation that case that you're accessing the data layer where @Service is intended to be
+    a @Service.
+
+    Now @RestController, some people don't consider @RestController actual Stereotype because it is a
+    convenience annotation and it represents @Controller and @ResponseBody. So if you look at the code of that
+    you can see that it just extends @Controller and adds in the @ResponseBody.
+
+    Now @ResponseBody as an annotation we have not seen yet. That is used within Spring MVC to render an object
+    back to the response and commonly you're going to be working with this when you're doing Restful API's.
+    You're going to be returning back a JSON object or an XML object and @Response Body is what says, take
+    this object and render it back to the client as json or xml.
+
+                Spring Framework Stereotypes Table
+
+        Annotation                        Description
+
+    @Component              Indicates that an annotated class is a "Component" and it will be created as a bean
+
+    @Controller             Indicates that an annotated class has the role of a Spring MVC "Controller"
+
+    @RestController         Convenience annotation which extends @Controller, and adds @ResponseBody
+
+    @Repository             Indicates tha t an annotated class ia a "Repository", originally defined by
+                            Domain-Driven Design (Evans, 2003) as "a mechanism for encapsulation storage,
+                            retrieval, and search behavior which emulates a collection of objects"
+
+    @Service                Indicates that an annotated class is a "Service", originally defined by
+                            Domain-Driven Design (Evans, 2003) as "an operation offered as an interface
+                            that stands alone in the model, with no encapsulated state."
+
+
+    Taking a closer look at the different Spring stereotypes, we have @Component and @Controller.
+    They're very similar but they're just indicating different intentions. @RestController that is a
+    convenience annotation combining @Controller and @ResponseBody.
+
+    Now @Repository and @Services, these are both inspired by Domain-Driven Design by Evans in 2003.
+    We can see that repository is a mechanism for encapsulating storage retrieval and search behavior.
+    So it's going to be defining classes. It's going to be interacting with a persistence in database likely.
+
+    And then a @Service, there's an operation that stands alone in the model, with no encapsulated state.
+    So a real real common pattern which we've already seen is that you're going to take a @Controller and
+    give it a @Service and the @Service is going to be responsible as far as managing the interaction with
+    the @Controller and the database layer. So pretty common pattern within Spring Framework to have a controller
+    inject a service into it and that service will have a repository injected into it.
+
+                @Repository Error Handling
+
+                          ______________________DataAccessException_________________________
+                         |                |    /          |         \     |                 |
+    - DataAccessResourceFailureException__|   /           |          \    |__- UncategorizedDataAccessException
+    - CleanupFailureDataAccessException___|  /            |           \   |__- DataIntegrityViolationException
+    - InvalidDataAccessApiUsageException__| /             |            \  |__- DeadlockLoserDataAccessException
+                                           /              |             \
+    - InvalidDataAccessResourceUsageException             |             - OptimisticLockingFailureException
+                   |                   |  - DataRetrievalFailureException                  |
+                   |                   |____________            |                          |
+                   |                                |           |                          |
+    - IncorrectUpdateSemanticsDataAccessException   |           |       - ObjectOptimisticLockingFailureException
+                                                    |           |
+                        - TypeMismatchDataAccessException    - ObjectRetrievalFailureException
+
+
+    Now all these annotations behaviorally to the Spring Framework are roughly the same repositories the one
+    that does stick out a little bit because what we get here, we do get some special error handling when you mark
+    a component on the Spring using the @Repository annotation and what Spring is going to do under the covers
+    is take if you're using hibernate or just straight JDBC and different databases, it's going to take those
+    exceptions from that specific layer and make it into the Spring generic, or I shouldn't say generic,
+    but a Spring exception so that the exception and error handling above your repository is going to stay generic
+    to the Spring Framework and not be tied to the particular persistence application you have underneath.
+    So it's a basically an abstraction layer and it's a good habit to do when we get into that because you're going
+    to be looking and handling Spring exceptions and if you think if you have an application
+    and you might be on MySQL, you don't want to be handling MySQL specific errors when further down the road.
+    You might migrate the application to Oracle and get on a real database.
