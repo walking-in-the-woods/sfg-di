@@ -1,4 +1,4 @@
-package as.sfgdi.services;
+package as.services;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
