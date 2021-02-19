@@ -7,14 +7,14 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class ConstructorController {
 
-    private final GreetingService greetingService;
+    private GreetingService greetingService;
 
     public ConstructorController(@Qualifier("constructorGreetingService")
                                                  GreetingService greetingService) {
         this.greetingService = greetingService;
     }
 
-    public String getGreeting() {
+    public String sayHello() {
         return greetingService.sayGreeting();
     }
 }

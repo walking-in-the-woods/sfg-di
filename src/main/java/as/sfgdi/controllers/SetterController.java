@@ -10,13 +10,12 @@ public class SetterController {
 
     private GreetingService greetingService;
 
-    @Autowired
-    @Qualifier("setterGreetingService")
-    public void setGreetingService(GreetingService greetingService) {
-        this.greetingService = greetingService;
+    public String sayHello() {
+        return greetingService.sayGreeting();
     }
 
-    public String getGreeting() {
-        return greetingService.sayGreeting();
+    @Autowired
+    public void setGreetingService(@Qualifier("setterGreetingService") GreetingService greetingService) {
+        this.greetingService = greetingService;
     }
 }
