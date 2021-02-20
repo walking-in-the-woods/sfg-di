@@ -1,0 +1,29 @@
+
+                Thymeleaf Features
+
+    - Thymeleaf is a Java Template Engine
+    - Thymeleaf template engine produces XML, XHTML, and HTML5.
+    - Thymeleaf is a replacement for JSPs (Java Server Pages)
+    - Thymeleaf is a 'Natural' Template Engine.
+    - Is not tied to web environment. (ie can be used for producing HTML for emails)
+    - Thymeleaf is not a web framework
+
+                Thymeleaf vs JSP
+
+    - Thymeleaf templates are valid HTML documents you can view in the browser.
+        (natural template engine)
+    - JSP files are not valid HTML, and look awful in the browser.
+    - The natural templating ability allows you to perform rapid development,
+      without the need to run a container to parse the template/JSP to view
+      the product in a browser.
+      - Speeds development time.
+        (you can just refresh a browser without restarting the Tomcat)
+
+                Thymeleaf Performance
+
+    - Thymeleaf typically does benchmark slower than other template engines
+      such as JSP, Freemaker, and Velocity
+        - Note: Spring 5 no longer supports Velosity
+
+    - Thymeleaf 3.0 did bring significant performance improvements
+        - Beware of old benchmark data!

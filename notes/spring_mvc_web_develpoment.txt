@@ -1,0 +1,23 @@
+
+                Developer Tools
+
+    - Chrome Developer Tools
+    - Firefox Firebug
+    - Safary Web Inspector
+    - Axis TCPMon
+    - Spring Boot Developer Tools
+    - Spring Boot WebJars
+
+                Recipe Project
+
+    - New JPA Model
+    - Challenging Assignment - Display List of Recipes
+    - Full coding exercise and review
+    - Foundation for CRUD operations with Spring MVC course module
+
+    - Use Spring Initializr to create a new Spring Boot project
+    - Use Spring Boot v2
+    - Add "DevTools" (under core)
+    - Add "Web" (under Web)
+    - Add "Thymeleaf" (under Template Engines)
+    - Add JPA and H2 (under SQL)
