@@ -1,0 +1,57 @@
+
+                Spring Bean Scopes
+
+    - Singleton - (default) Only one instance of the bean is created in the IoC container.
+    - Prototype - A new instance is created each time the bean it requested.
+    - Request - A single instance per http request. Only valid in the context of a web-aware Spring ApplicationContext
+    - Session - A single instance per http session. Only valid in the context of a web-aware Spring ApplicationContext
+    - Global-session - A single instance per global session. Typically Only used in a Portlet context. Only valid
+      in the context of a web-aware Spring ApplicationContext.
+    - Application - Scopes a single bean to the lifecycle of a ServletContext. Only valid in the context of a web aware.
+    - Websocket - Scopes a single bean definition to the lifecycle of a WebSocket. Only valid in the context of a
+      web-aware Spring ApplicationContext.
+    - Custom Scope - Spring Scopes are extensible, and you can define your own scope by implementing
+      Spring's 'Scope' interface.
+
+    (You cannot override the built in Singleton and Prototype Scopes)
+
+
+                Singleton Scope
+
+    <bean id="..." class="...">                                 Only one instance is ever created...
+        <property name="accountDao"         <------|
+                ref="accountDao"/>                 |
+    </bean>                                        |
+    <bean id="..." class="...">                    |    (1)
+            <property name="accountDao"     <------|----------  <bean id="accountDao" class="..."/>
+                    ref="accountDao"/>             |
+    </bean>                                        |
+    <bean id="..." class="...">                    |
+            <property name="accountDao"     <------|
+                    ref="accountDao"/>
+    </bean>
+                ... and this same shared instance is injected into each collaborating object
+
+
+                Prototype Scope
+
+    <bean id="..." class="...">                                  A brand new bean instance is created...
+        <property name="accountDao"         <------|    <--(1)
+                ref="accountDao"/>
+    </bean>
+    <bean id="..." class="...">
+            <property name="accountDao"     <------|    <--(2)    <bean id="accountDao" class="..."
+                    ref="accountDao"/>                                      scope="prototype"/>
+    </bean>
+    <bean id="..." class="...">
+            <property name="accountDao"     <------|    <--(3)
+                    ref="accountDao"/>
+    </bean>
+                ... each and every time the prototype is referenced by collaborating beans
+
+
+                Declaring Bean Scope
+
+    - No declaration needed for singleton scope
+    - In Java configuration use @Scope annotation
+    - In XML configuration scope is an XML attribute of the 'bean' tag
