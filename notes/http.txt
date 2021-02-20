@@ -1,0 +1,79 @@
+
+                HTTP Request Methods
+
+    Request methods, also known as verbs, are used to indicate
+    the desired action to be performed
+
+    - GET - is a request for a resource (html file, javascript file, image, etc)
+        GET - is used when you visit a website
+    - HEAD - is like GET, but only asks for meta information without the body
+    - POST - is used to post data to the server.
+        Typical use case for POST is to post form data to the server
+        (like a checkout form)
+    - PUT - is a request for the enclosed entity be stored at the supplied URI.
+        If the entity exists, it is expected to be updated.
+            - POST is a create request
+            - PUT is a create OR update request
+    - DELETE - is a request to delete the specified resource
+    - TRACE - will echo the received request. Can be used to see
+            if request was altered by intermediate servers
+    - OPTIONS - Returns the HTTP methods supported by the server for the specified URL
+    - CONNECT - Converts the request to a transparent TCP/IP tunnel,
+                typically for HTTPS through a unencrypted HTTP proxy
+    - PATCH - Applies partial modifications to the specified resource
+
+                Safe Methods
+
+    - Safe Methods are considered safe to use because they only fetch information
+        and do not cause changes on the server
+    - The Safe Methods are: GET, HEAD, OPTIONS, and TRACE
+
+                Idempotent Methods
+
+    - Idempotence - A quality of an action such that repetitions of the action
+                    have no further effect on the outcome
+    - PUT and DELETE are Idempotent Methods
+    - Safe Methods (GET, HEAD, TRACE, OPTIONS) are also Idempotent
+    - Being truly Idempotent is not enforced by the protocol
+
+                Non-Idempotent Methods
+
+    - POST is NOT Idempotent
+    - Multiple Posts are likely to create multiple resources
+    - Ever seen websites asking you to click submit only once?
+
+    Method      Request     Response    Safe    Idempotent      Cachable
+                Body        Body
+    ---------------------------------------------------------------------
+    GET         NO          YES         YES         YES           YES
+
+    HEAD        NO          NO          YES         YES           YES
+
+    POST        YES         YES          NO          NO           YES
+
+    PUT         YES         YES          NO         YES           NO
+
+    DELETE      NO          YES          NO         YES           NO
+
+    CONNECT     YES         YES          NO          NO           NO
+
+    OPTIONS   OPTIONAL      YES         YES         YES           NO
+
+    TRACE       NO          YES         YES         YES           NO
+
+    PATCH       YES         YES          NO          NO           YES
+
+                HTTP Status Codes
+
+    - 100   series are informational in nature
+    - 200   series indicate successful request
+    - 300   series are redirections
+    - 400   series are client errors
+    - 500   series are server side errors
+
+                Common HTTP Status Codes
+
+    - 200 Okay; 201 Created; 204 Accepted
+    - 301 Moved Permanently
+    - 400 Bad Request; 401 Not Authorized; 404 Not Found
+    - 500 Internal Server Error; 503 Service Unavailable
