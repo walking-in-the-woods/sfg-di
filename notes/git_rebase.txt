@@ -1,0 +1,14 @@
+
+    1.    git rebase -i HEAD~4
+
+    2.    reword 624358 Implemented Map impl for Visit Service    <-- we should add text here
+          pick 162ca1b ...
+          pick 036baac ...
+
+    3.    wq    <-- to quit from vim
+
+    4.    Implemented Map impl for Visit Service. Closes #46
+
+    5.    wq
+
+    6.    git push --force
