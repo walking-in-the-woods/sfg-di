@@ -114,7 +114,7 @@
     @IfProfileValue                     Indicates test is enabled for a specific testing environment
     @ProfileValueSourceConfiguration    Specify a profile value source
 
-    FEATURE	                                                    JUNIT 4	        JUNIT 5
+        FEATURE	                                             JUNIT 4	    JUNIT 5
 
     Declare a test method	                                @Test	        @Test
     Execute before all test methods in the current class	@BeforeClass	@BeforeAll
@@ -126,3 +126,11 @@
     Nested tests	                                            NA	        @Nested
     Tagging and filtering	                                @Category	    @Tag
     Register custom extensions	                                NA	        @ExtendWith
+
+                Key Difference between JUnit4 and JUnit5
+
+            JUnit 4                                        JUnit 5
+
+    @Test(expected = Foo.class)                 Assertions.assertThrows(Foo.class...
+    @Test(timeout = 1)                          Assertions.assertTimeout(Duration...
+    @RunWith(SpringJUnit4ClassRunner.class)     @ExtendWith(SpringExtension.class)
