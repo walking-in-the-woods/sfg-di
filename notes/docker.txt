@@ -45,3 +45,21 @@
                            |
                   server docker daemon
 
+
+                Docker Editions
+
+    Docker Enterprise Edition vs Docker Community Edition
+
+                Docker Enterprise Edition
+
+    - CaaS (Container as a Service) platform subscription
+    - Enterprise class support
+    - Quarterly Releases
+    - Backported patches for 1 yr
+    - Certified Infrastructure
+
+                Docker Community Edition
+
+    - Free Docker edition for developers and operations
+    - Monthly "edge" release with latest features for developers
+    - Quarterly releases for operations
