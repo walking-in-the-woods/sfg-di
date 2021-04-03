@@ -1,0 +1,47 @@
+
+                What is Docker?
+
+    - Docker is a standard for Linux containers.
+    - A "Container" is an isolated runtime inside of Linux
+    - A "Container" provides a private machine like space under Linux
+    - Containers will run under any modern Linux Kernel
+
+                Containers can:
+
+    - Have their own process space
+    - Their own network interface
+    - "Run" processes as root (inside the container)
+    - Have their own disk space
+    - (can share with host too)
+
+                A Container is not a VM!
+
+            Virtual Machine                                 Containers
+
+        App1        App2        App3
+    Bins/Libs   Bins/Libs   Bins/Libs               App1        App2        App3
+    Guest OS    Guest OS    Guest OS              Bins/Libs   Bins/Libs   Bins/Libs
+    ---------- Hypervisor -----------             --------- Docker Engine ---------
+    ----- Host Operating System -----             -------- Operating System -------
+    --------- Infrastructure --------             --------- Infrastructure --------
+
+    The main difference that containers have no guest operating systems.
+
+                Docker Terminology
+
+    - Docker Image - The representation of a Docker Container. Kind of like a JAR or WAR file in Java
+    - Docker Container - The standard runtime of Docker. Effectively a deployed and running Docker Image.
+                         Like a Spring Boot Executable JAR
+    - Docker Engine - The code which manages Docker stuff. Creates and runs Docker Containers
+
+                Docker Engine Runtime
+
+    network     container       image       data volumes
+       |____________|_____________|______________|
+                           |
+                    Client docker CLI
+                           |
+                        REST API
+                           |
+                  server docker daemon
+
