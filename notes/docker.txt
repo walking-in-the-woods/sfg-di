@@ -63,3 +63,21 @@
     - Free Docker edition for developers and operations
     - Monthly "edge" release with latest features for developers
     - Quarterly releases for operations
+
+                Start a Mongo Instance
+
+    $ docker run --name some-mongo -d mongo
+
+    --name
+    -d - tells it to run in the background
+    mongo - the last image
+    mongo:tag
+
+    ... where some-mongo is the name you want to assign to your container
+    and tag is the tag specifying the MongoDB version you want
+
+    docker pull mongo
+    sudo docker run -d mongo
+    sudo docker ps
+    sudo docker stop 67c33933139e
+    sudo docker run -p 27017:27017 -d mongo     // now this is mapped to the port 27017
