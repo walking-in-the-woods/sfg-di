@@ -273,3 +273,32 @@ ADD ubuntu-focal-core-cloudimg-amd64-root.tar.gz /
         ***** <----> *****      // layer (these are shared)
         ***** <----> *****
         ***** <----> *****
+
+        To persist data in the file system:
+
+    1.  Create a data directory on a suitable volume on your host system, e.g. /my/own/datadir.
+
+    2.  Start your mongo container like this:
+
+    $ docker run --name some-mongo -v /my/own/datadir:/data/db -d mongo
+
+    The -v /my/own/datadir:/data/db part of the command mounts the /my/own/datadir directory from the
+    underlying host system as /data/db inside the container, where MongoDB by default will write its data files.
+
+    This image also defines a volume for /data/configdb for use with --configsvr
+
+            TO PERSIST DATA IN WINDOWS 10 LOCAL DRIVE:
+
+    1.  start Ubuntu on WSL-2   // don't forget to add the WSL-2 support in Windows and Docker
+    2.  cd /mnt/d/code/db/mongo // move to the empty directory where we're going to create a db wired to the container
+    3.  sudo docker run -p 27017:27017 -v /pwd/:/data/db -d mongo // run docker command in the current directory
+    4.  sudo docker ps  // to see that the container is wired
+    5.  run the app and test the persistence in a browser (create an item in the db)
+    6.  sudo docker stop <..container hash from ps command result..>
+    7.  history | grep mongo    // get all the commands with "mongo" (or whatever db you're wiring)
+    8.  56  sudo docker run -p 27017:27017 -v /pwd/:/data/db -d mongo   // find the command with which we created the db
+    9.  !56 //  this command repeats the chosen one (#56 in this example)
+    10. sudo docker ps  // to see that the container is wired
+    11. run the app to check the persistence in a browser (we should see the item we created in step 5)
+    ....
+    #   PROFIT
