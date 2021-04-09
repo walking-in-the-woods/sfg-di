@@ -314,3 +314,137 @@ ADD ubuntu-focal-core-cloudimg-amd64-root.tar.gz /
     // but it feels quite comfortable in WSL2 /var/lib/ directory (you should make it using wsl2, of course)
     // because it is installed on Linux natively:
     sudo docker run --name as-mysql -p 3306:3306 -v /var/lib/.../:/var/lib/mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -d mysql
+
+                Docker House Keeping
+
+                Cleaning Up After Docker
+
+    - With Development Use Docker can leave behind a lot of files
+    - These files will grow and consume a lot of disk space
+    - This is less of an issue on production systems where containers aren't being built and restarted all the time
+    - There are 3 key areas of house keeping:
+            - Containers
+            - Images
+            - Volumes
+
+                Cleaning Up Containers
+
+    - Kill all Running Docker Containers
+        - docker kill $(docker ps -q)
+    - Delete all Stopped Docker Containers
+        - docker rm $(docker ps -a -q)
+
+                Cleaning Up Images
+
+    - Remove a Docker Image
+        - docker rmi <image name>
+    - Delete Untagged (dangling) Images
+        - docker rmi $(docker images -q -f dangling=true)
+    - Delete All Images
+        - docker rmi $(docker images -q)
+
+                Cleaning Up Volumes
+
+    - Once a volume is no longer associated with a container, it is considered "dangling"
+    - Remove all dangling volumes
+        - docker volume rm $(docker volume ls -f dangling=true -q)
+    - NOTE: Does not remove files from host system in shared volumes
+
+    List all Docker Images
+        docker images -a
+
+    List All Running Docker Containers
+        docker ps
+
+    List All Docker Containers
+        docker ps -a
+
+    Start a Docker Container
+        docker start <container name>
+
+    Stop a Docker Container
+        docker stop <container name>
+
+    Kill All Running Containers
+        docker kill $(docker ps -q)
+
+    View the logs of a Running Docker Container
+        docker logs <container name>
+
+    Delete All Stopped Docker Containers
+    Use -f option to nuke the running containers too.
+        docker rm $(docker ps -a -q)
+
+    Remove a Docker Image
+        docker rmi <image name>
+
+    Delete All Docker Images
+        docker rmi $(docker images -q)
+
+    Delete All Untagged (dangling) Docker Images
+        docker rmi $(docker images -q -f dangling=true)
+
+    Delete All Images
+        docker rmi $(docker images -q)
+
+    Remove Dangling Volumes
+        docker volume rm -f $(docker volume ls -f dangling=true -q)
+
+    SSH Into a Running Docker Container
+    Okay not technically SSH, but this will give you a bash shell in the container.
+        sudo docker exec -it <container name> bash
+
+    Use Docker Compose to Build Containers
+    Run from directory of your docker-compose.yml file.
+        docker-compose build
+
+    Use Docker Compose to Start a Group of Containers
+    Use this command from directory of your docker-compose.yml file.
+        docker-compose up -d
+
+    This will tell Docker to fetch the latest version of the container from the repo, and not use the local cache.
+        docker-compose up -d – force-recreate
+
+    This can be problematic if you’re doing CI builds with Jenkins and pushing Docker images to another host, or using for CI testing. I was deploying a Spring Boot Web Application from Jekins, and found the docker container was not getting refreshed with the latest Spring Boot artifact.
+
+    1.  #stop docker containers, and rebuild
+    2.  docker-compose stop -t 1
+    3.  docker-compose rm -f
+    4.  docker-compose pull
+    5.  docker-compose build
+    6.  docker-compose up -d
+
+    Follow the Logs of Running Docker Containers With Docker Compose
+        docker-compose logs -f
+
+    Save a Running Docker Container as an Image
+        docker commit <image name> <name for image>
+
+    Follow the logs of one container running under Docker Compose
+        docker-compose logs pump <name>
+
+            Dockerfile Hints for Spring Boot Developers
+
+    Add Oracle Java to an Image
+    For CentOS/ RHEL
+
+    1.  ENV JAVA_VERSION 8u31
+    2.  ENV BUILD_VERSION b13
+    3.
+    4.  # Upgrading system
+    5.  RUN yum -y upgrade
+    6.  RUN yum -y install wget
+    7.
+    8.  # Downloading & Config Java 8
+    9.  RUN wget – no-cookies – no-check-certificate – header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-$BUILD_VERSION/jdk-$JAVA_VERSION-linux-x64.rpm" -O /tmp/jdk-8-linux-x64.rpm
+    10. RUN yum -y install /tmp/jdk-8-linux-x64.rpm
+    11. RUN alternatives – install /usr/bin/java jar /usr/java/latest/bin/java 200000
+    12. RUN alternatives – install /usr/bin/javaws javaws /usr/java/latest/bin/javaws 200000
+    13. RUN alternatives – install /usr/bin/javac javac /usr/java/latest/bin/javac 200000
+
+    Add / Run a Spring Boot Executable Jar to a Docker Image
+
+    1.  VOLUME /tmp
+    2.  ADD /maven/myapp-0.0.1-SNAPSHOT.jar myapp.jar
+    3.  RUN sh -c 'touch /myapp.jar'
+    4.  ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/myapp.jar"]
