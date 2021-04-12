@@ -1,0 +1,12 @@
+
+                    Assignment
+
+    -   Create a local MySQL instance or install natively in a Docker
+    -   Setup two databases. One for dev, one for prod
+        -   Call databases as_dev and as_prod
+    -   Using the MySQL root user is NOT a good practice
+        -   Best practice is to create accounts with the minimum authority required
+    -   Create two accounts, one for dev, one for prod
+        -   as_dev_user, as_prod_user
+    -   Both should have DML (Data Manipulation Language) access (basic CRUD) to their respective databases
+    -   Neither should have DDL (Data Definition Language) access

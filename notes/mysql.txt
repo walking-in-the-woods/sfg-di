@@ -1,0 +1,264 @@
+
+                    MySQL Features
+
+    - Stored Procedures
+        (code that executes inside a database)
+    - Triggers
+        (code that runs when some events happen)
+    - Cursors
+        (are used to get a large set of data and they let you point a place in the data, so you can scroll through it
+        and look into the next record giving the next record an so on)
+    - Updated Views
+        (Views are like a virtual table. It's an actual SQL view but you store that inside the database)
+    - Query Cache
+        (chaching the database in real memory)
+    - Subselects
+        (a feature where you can have all nested queries)
+    - ACID Compliance       // very important for banking and finance
+        -   Atomicity - all or nothing
+        -   Consistency - transactions are valid to rules of the DB
+        -   Isolation - results of transactions are as if they are done end to end
+        -   Durability - once a transaction is committed, it remains so
+
+                    MySQL Editions
+
+    -   MySQL Community Edition
+        -   Open Source under GPL, free to use
+        -   Community support only
+    -   MySQL Standard Edition
+        -   24x7 support from Oracle
+        -   Technically the same as Community Edition, but with support
+    -   MySQL Enterprise Edition
+        -   Provides features for cluster routing and partitioning
+        -   Includes Enterprise tooling for monitoring, backups, and security
+        -   Thread pooling for significant increase in performance under large loads
+    -   MySQL Cluster CGE
+        -   Designed for near linear scalability through clustering
+        -   High volume, highly available
+
+                    RDBMS Deployment Architectures
+
+    - RDBMS's can be deployed in a number of different ways
+    - Typically is driven by needs of scalability and availability
+    - Can be done on a single non-dedicated server, or many dedicated servers
+    - Communication is typically over a network socket
+    - The client will need software called a "driver" to talk to the database over the network socket
+
+                    Simple Non-Dedicated Server
+
+    - Single Server (Computer)
+    - RDMBS is installed
+    - User logs in and accesses database from command line
+    - Simplest configuration
+    - Often will talk over "localhost" and a network socket on localhost
+
+        [ single machine ] -- Database
+
+                    LAMP Stack
+
+    - LAMP = Linux, Apache, MySQL, PHP
+    - Very popular
+    - Most websites will run off a single server
+    - Downside is database and Apache compete for the limited server resources
+
+        [ single machine ] -- Apache | PHP | Database
+
+                    Client Server
+
+    - Was popular in 90s
+    - Concept of moving application code to the client and different hardware, while using
+        dedicated hardware for the database server
+    - Offloads the application load from the database server
+    - Still frequently used in some form
+
+        [ Client ] <---> [ Server ]
+
+                    Scaling Client Server
+
+    - Scalability is achieved by doing processing on application servers
+    - Database Server is dedicated
+    - Often companies will increase the size of the database server to grow further
+    - Data storage is off loaded to dedicated hardware
+
+         [ --- ] [ --- ] [ --- ] [ --- ] [ --- ] [ --- ]
+                    Application Servers
+                             |
+        [ Storage ] -- [ Database Server ] -- [ Storage ]
+
+                    Scaling Even Higher
+
+    - Multiple Servers are used for the database
+    - Example - Oracle Real Application Cluster
+    - Improves Scalability over a single database server
+    - Improves Reliability since a node can be lost, and the database cluster will continue
+    - "Mainframe" like performance
+
+          [ --- ] [ --- ] [ --- ] [ --- ] [ --- ] [ --- ]
+                     Application Servers
+                              |
+        [ Storage ] -- [ Database Cluster ] -- [ Storage ]
+                       [ DB ]-[ DB ]-[ DB ]
+
+                    Cloud Scaling
+
+    - Cloud Scale - Think Amazon, Google, Facebook
+    - Distributed computing - load is spread to many many servers
+    - Often cheap commodity servers are used
+    - Large mainframe like systems are avoided
+    - Significantly different paradigm than Client Server
+    - RDBMS's are typically not used due to scalability limitations
+
+                    MySQL Data Types
+
+    - MySQL does support the standard ANSI SQL Data types:
+        -   Numeric Data Types
+        -   Date and Time Data Types
+        -   String Data Types
+        -   Spatial Data Types
+        -   JSON Data Type
+
+                    Numeric Data Types
+
+       Type                 Bytes               Description                              Min .. Max        ANSI?
+
+    INTEGER / INT           4           Integer                                -2147483648 .. 4294967295    Y
+    TINYINT                 1           Very small Integer                          -128 .. 255             N
+    SMALLINT                2           Small sized Integer                         -32767 .. 65535         Y
+    MEDIUMINT               3           Medium sized Integer                        -8388608 .. 16777215    ?
+    BIGINT                  8           A large Integer                                 -2^63 .. 2^64-1     Y
+    FLOAT                   4           A floating point number (10 digits, 2 decimals) 0 .. 24 places      Y
+    DOUBLE                  8           A double precision floating point number        0 .. 53 places      Y
+    DECIMAL / NUMERIC   Length + or  2  Stored as a String, for fixed decimal point     0 .. 65 places      Y
+                        bytes
+
+                    Date and Time DataTypes
+
+        Type      Bytes         Description                                                     ANSI
+
+    DATE            3       Stores the date without a time component                             Y
+    DATETIME        8       Stores the date with a time component. No timezone info stored       N
+    TIMESTAMP       4       Stores the date with a time component. Converted to UTC              Y
+                            from session timezone upon storage
+    TIME            3       Time - can be used for time of day, or elapsed time                  Y
+    YEAR            1       A year value from 1901 to 2155                                       N
+
+                    Character Sets
+
+    -   ASCII - American Standard Code for Information Interchange
+        - One of the first "character" sets
+        - Limited to 128 characters (mostly letters, numbers, common punctuation)
+    -   UTF-8 is highly popular used for email / web. 1 - 4 bytes long.
+        - Up to 1112064 characters
+
+                    String Data Types
+
+        Type        Bytes           Description                                                         ANSI
+
+    CHAR        Length          Fixed length string 0-255 characters. DB will pad spaces to end          Y
+                                of string to full length. ie storing "foo" in char(5) would be
+                                foo + space + space in database
+    VARCHAR     Length + 1      For storage of variable length strings up to 65535 characters            Y
+    BINARY      Length          Similar to CHAR, but contains binary strings and pads with zero byte     Y
+                                Stored as a binary character set, which affects sorting and comparing
+    VARBINARY   Length + 1      Similar to VARCHAR, but for variable length binary strings.              Y
+                                Stored as a binary character set, which affects sorting and comparing
+    BLOB        Length + 2-4    Binary Large Object - stored as binary                                   Y
+    TEXT        Length + 2      Stored as non-binary strings, with character set info                    N
+    ENUM        1 or 2 bytes    Collection of string literals. (example: colors - RED, BLUE, GREEN),     N
+                                column can be ONE of the values
+    SET         1 to 8 bytes    Collection of values, column may have one or more of values in SET       N
+                                Similar to ENUM, but a column can be more than one of the values
+
+                    Spatial Data Types
+
+    -   Data types fpr spatial values
+    -   Functions for manipulating spatial values
+    -   Spatial indexing for improve performance
+
+                    JSON Data Type
+
+    - JSON - JavaScript Object Notation
+        - This is a complex, structured document containing properties and values
+    - Storage for JSON data types is similar to BLOB or TEXT data types
+    - MySQL will convert the JSON to an internal format for optimized storage and searching
+        - Some formatting may be lost and ordering of properties may change
+    - MySQL supports searching of JSON document properties
+    - MySQL allows you to update portions of a JSOM document (no replace needed)
+
+                    MySQL Installation
+
+    Custom:
+
+    1.  MySQL Server
+    2.  MySQL Workbench
+    3.  MySQL Shell
+    4.  Connector/J
+
+                    Types of connection
+
+    - Local Connection
+        (connecting tp MySQL from the command line on the machine running MySQL)
+    - Remote / Client Connection
+        (using some client software OR connecting from a different machine over the network)
+
+                    Client Protocols
+
+    -   TCP/IP  -   Most common
+    -   SOCKET  -   UNIX/OSX/LINUX only
+    -   PIPE    -   Windows only
+    -   MEMORY  -   Windows only
+
+                    TCP / IP
+
+    -   TCP / IP  -   Transmission Control Protocol / Internet Protocol
+    -   DNS   - Domain Name Service - Associates an IP address with a human readable name
+    -   localhost - 127.0.0.1
+    -   Port    -   from 0 to 65535
+    -   MySQL by default will connect on port 3306
+
+                    MySQL Command Line for OSX / Linux
+
+    mysql=/usr/local/mysql/bin/mysql
+
+    mysql --user=root -p // -p is for password
+
+    mysql show databases;
+
+    use mysql;
+
+    show tables;
+
+    describe user;   // describe a particular table, "user" in this case
+
+    select host, user from user;
+
+    exit
+
+                    MySQL Command Line for Docker
+
+    docker ps
+
+    docker run --name as-mysql -e MYSQL_ROOT_PASSWORD=password -d mysql     // in example
+    docker start as-mysql   // actually
+
+    docker exec -it as-mysql bash
+
+    whoami  // answer:  root
+
+    mysql --user=root -p
+
+    status
+
+    mysql show databases;
+
+    use mysql;
+
+    show tables;
+
+    select host, user from user;
+
+    exit    // to exit from mysql
+
+    exit    // to exit from the container
+
+    docker stop as-mysql
