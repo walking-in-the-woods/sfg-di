@@ -1,0 +1,33 @@
+
+                    About Mongo DB
+
+    - MongoDB is a document oriented database
+    - MongoDB is a NoSQL database
+    - MongoDB documents are stored in BSON (binary JSON)
+
+                    Why Use MongoDB?
+
+    - MongoDB is great for high insert systems
+        (Such as sensor readings, social media systems, advertizing systems)
+    - Good when you need schema flexibility
+    - Can also support a high number of reads per second
+
+                    Why Avoid MongoDB?
+
+    - MongoDB has no concepts of transactions
+        - No A.C.I.D.
+        - No locking for transactional support, hence faster inserts
+    - Not good for concurrent updates
+    - Lots of jokes about MongoDB losing data
+        (so, it's better to use it on apps like Facebook, (what happen if you lose a "Like"?))
+
+                    MongoDB Terminology
+
+        RDMS                MongoDB
+        Database            Database
+        Table               Collection
+        Row                 Document
+        Column              Field
+        Table Join          Embedded Document
+        Primary Key         Primary Key
+        Aggregation         Aggregation Pipeline
