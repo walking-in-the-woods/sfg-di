@@ -216,6 +216,10 @@
     -   Port    -   from 0 to 65535
     -   MySQL by default will connect on port 3306
 
+                    Free GUI
+
+    DBeaver
+
                     MySQL Command Line for OSX / Linux
 
     mysql=/usr/local/mysql/bin/mysql

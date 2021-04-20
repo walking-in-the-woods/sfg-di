@@ -31,3 +31,7 @@
         Table Join          Embedded Document
         Primary Key         Primary Key
         Aggregation         Aggregation Pipeline
+
+                    Free GUI
+
+    NoSQLBooster
